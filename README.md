@@ -1,12 +1,5 @@
 # BabyPlonk
-**BabyPlonk** is forked from [PlonKathon](https://github.com/0xPARC/plonkathon), which is part of the program for [MIT IAP 2023] [Modern Zero Knowledge Cryptography](https://zkiap.com/). 
-
-### Setup Environment
-Install [poetry](https://python-poetry.org/docs/#installation).
-
-```bash
-poetry install
-```
+**BabyPlonk** is part of the coding program for [MIT IAP 2023] [Modern Zero Knowledge Cryptography](https://zkiap.com/). 
 
 ### Exercises
 
