@@ -1,5 +1,12 @@
-# PlonKathon
-**PlonKathon** is part of the program for [MIT IAP 2023] [Modern Zero Knowledge Cryptography](https://zkiap.com/). Over the course of this weekend, we will get into the weeds of the PlonK protocol through a series of exercises and extensions. This repository contains a simple python implementation of PlonK adapted from [py_plonk](https://github.com/ethereum/research/tree/master/py_plonk), and targeted to be close to compatible with the implementation at https://zkrepl.dev.
+# BabyPlonk
+**BabyPlonk** is forked from [PlonKathon](https://github.com/0xPARC/plonkathon), which is part of the program for [MIT IAP 2023] [Modern Zero Knowledge Cryptography](https://zkiap.com/). 
+
+### Setup Environment
+Install [poetry](https://python-poetry.org/docs/#installation).
+
+```bash
+poetry install
+```
 
 ### Exercises
 
