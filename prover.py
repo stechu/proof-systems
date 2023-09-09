@@ -144,6 +144,7 @@ class Prover:
         #
         # Note the convenience function:
         #       self.rlc(val1, val2) = val_1 + self.beta * val_2 + gamma
+        # NOTE: we can choose k_1 = 2, k_2 = 3 (see page 26 of PLONK paper) 
         roots_of_unity = Scalar.roots_of_unity(group_order)
         Z_values = [Scalar(1)]
         for j in range(group_order):
@@ -188,9 +189,10 @@ class Prover:
 
         # List of roots of unity at 4x fineness, i.e. the powers of µ
         # where µ^(4n) = 1
+        mu_s = Scalar.roots_of_unity(4*group_order)
 
         # Using self.fft_expand, move A, B, C into coset extended Lagrange basis
-
+        
         # Expand public inputs polynomial PI into coset extended Lagrange
 
         # Expand selector polynomials pk.QL, pk.QR, pk.QM, pk.QO, pk.QC
