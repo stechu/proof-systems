@@ -176,8 +176,8 @@ class Prover:
 
         # Construct Z, Lagrange interpolation polynomial for Z_values
         # Cpmpute z_1 commitment to Z polynomial
-        Z = Polynomial(Z_values, Basis.LAGRANGE)
-        z_1 = setup.commit(Z)
+        self.Z = Polynomial(Z_values, Basis.LAGRANGE)
+        z_1 = setup.commit(self.Z)
         # Return z_1
         return Message2(z_1)
 
@@ -189,24 +189,44 @@ class Prover:
 
         # List of roots of unity at 4x fineness, i.e. the powers of µ
         # where µ^(4n) = 1
-        mu_s = Scalar.roots_of_unity(4*group_order)
+        quarter_roots = Scalar.roots_of_unity(4*group_order)
 
         # Using self.fft_expand, move A, B, C into coset extended Lagrange basis
+        A_expand = self.fft_expand(self.A)
+        B_expand = self.fft_expand(self.B)
+        C_expand = self.fft_expand(self.C)
         
         # Expand public inputs polynomial PI into coset extended Lagrange
+        PI_expand = self.fft_expand(self.PI)
 
         # Expand selector polynomials pk.QL, pk.QR, pk.QM, pk.QO, pk.QC
         # into the coset extended Lagrange basis
-
+        QL_expand = self.fft_expand(self.pk.QL)
+        QR_expand = self.fft_expand(self.pk.QR)
+        QM_expand = self.fft_expand(self.pk.QM)
+        QO_expand = self.fft_expand(self.pk.QO)
+        QC_expand = self.fft_expand(self.pk.QC)
+        
         # Expand permutation grand product polynomial Z into coset extended
         # Lagrange basis
+        Z_expand = self.fft_expand(self.Z)
 
         # Expand shifted Z(ω) into coset extended Lagrange basis
+        # NOTE: need to shift 4 here since Z has been expanded
+        Z_expand_shift = Z_expand.shift(4) 
 
         # Expand permutation polynomials pk.S1, pk.S2, pk.S3 into coset
         # extended Lagrange basis
+        S1_expand = self.fft_expand(self.pk.S1)
+        S2_expand = self.fft_expand(self.pk.S2)
+        S3_expand = self.fft_expand(self.pk.S3)
 
         # Compute Z_H = X^N - 1, also in evaluation form in the coset
+        Z_H_extend = Polynomial(
+            [
+                ((Scalar(r) * self.fft_cofactor) ** group_order -1)
+                for r in quarter_roots
+            ], Basis.LAGRANGE)
 
         # Compute L0, the Lagrange basis polynomial that evaluates to 1 at x = 1 = ω^0
         # and 0 at other roots of unity
